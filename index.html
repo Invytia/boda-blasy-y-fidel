@@ -1,771 +1,525 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Boda de Blasy y Fidel - 2026</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Boda de Blasy y Fidel - 2026</title>
 
-    <!-- Fuentes de Google -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Great+Vibes&family=Lora:ital,wght@0,400;0,500;1,400&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Great+Vibes&family=Lora:ital,wght@0,400;0,500;1,400&family=Montserrat:wght@400;500;600&family=Rye&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-    <!-- Iconos FontAwesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<style>
+:root{
+  /* Paleta: ivory + dorado + madera oscura (como la invitación física) */
+  --ivory:#FBF7EC; --cream:#F3EAD3; --gold:#C9A24B; --gold-light:#E6CF8E; --gold-dark:#8F6F25;
+  --wood:#2A1A10; --wood-2:#3B2616; --ink:#4A3828; --muted:#8C7A62;
+  --line:rgba(201,162,75,.55);
+  --f-western:'Rye',serif; --f-script:'Great Vibes',cursive; --f-serif:'Cormorant Garamond',serif;
+  --f-body:'Lora',serif; --f-sans:'Montserrat',sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{
+  background:var(--wood);
+  background-image:repeating-linear-gradient(92deg,rgba(0,0,0,.18) 0 2px,transparent 2px 9px),
+                   radial-gradient(circle at 50% 0%,#5a3a22 0%,var(--wood) 65%);
+  background-attachment:fixed; color:var(--ink); font-family:var(--f-body); overflow-x:hidden;
+}
 
-    <style>
-        /* ==========================================================================
-           VARIABLES (PALETA OLIVO / MARFIL / AZUL SUAVE)
-           ========================================================================== */
-        :root {
-            /* Paleta de la invitación */
-            --paper: #F5F0E8;
-            --olive: #7B8160;
-            --olive-dark: #5F6548;
-            --sage-blue: #D8E0E5;
-            --ink: #4E4B3E;
-            --muted: #8D8D76;
-            --line: rgba(123,129,96,0.45);
-            --text-color: #4E4B3E;
+/* Animaciones */
+@keyframes sealGlow{0%,100%{box-shadow:0 0 12px rgba(201,162,75,.6)}50%{box-shadow:0 0 28px rgba(230,207,142,1)}}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+@keyframes pulse{0%,100%{opacity:.7}50%{opacity:1}}
+.fade-in{opacity:0;transform:translateY(24px);transition:opacity 1s cubic-bezier(.22,1,.36,1),transform 1s cubic-bezier(.22,1,.36,1)}
+.fade-in.visible{opacity:1;transform:none}
+.scale-in{opacity:0;transform:scale(.96);transition:all 1s cubic-bezier(.22,1,.36,1)}
+.scale-in.visible{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){.fade-in,.scale-in{opacity:1;transform:none;transition:none}.envelope-wrapper,.seal,.envelope-text{animation:none!important}}
 
-            /* Variables usadas por el sobre (se conservan) */
-            --dark-contrast: #2D2722;
-            --gold: #D4AF37;
-            --gold-light: #F3E5AB;
-            --gold-dark: #AA8222;
-            --cream: #FFFDD0;
-            --white: #FFFFFF;
+/* ===== SOBRE ===== */
+#envelope-screen{position:fixed;inset:0;z-index:9999;display:flex;flex-direction:column;align-items:center;justify-content:center;
+  background:var(--wood);background-image:repeating-linear-gradient(92deg,rgba(0,0,0,.2) 0 2px,transparent 2px 9px),radial-gradient(circle,#5a3a22 0%,var(--wood) 70%);
+  transition:opacity 1s ease}
+.envelope-wrapper{position:relative;width:340px;max-width:88vw;height:230px;cursor:pointer;perspective:1000px;animation:float 5s infinite ease-in-out;transition:transform .3s}
+.envelope-wrapper:hover{transform:scale(1.04)}
+.envelope-body{position:absolute;inset:0;background:var(--cream);border-radius:4px;box-shadow:0 15px 40px rgba(0,0,0,.65),0 0 40px rgba(201,162,75,.35)}
+.envelope-front{position:absolute;inset:0;z-index:3;background:var(--ivory);clip-path:polygon(0 100%,0 0,50% 55%,100% 0,100% 100%);pointer-events:none}
+.envelope-front::after{content:"Blasy & Fidel";position:absolute;left:0;right:0;bottom:34px;text-align:center;font-family:var(--f-script);font-size:2rem;color:var(--gold-dark)}
+.envelope-flap{position:absolute;top:0;left:0;width:100%;height:145px;background:var(--cream);clip-path:polygon(0 0,100% 0,50% 100%);transform-origin:top;transition:transform .8s cubic-bezier(.4,0,.2,1);z-index:4}
+.seal{position:absolute;top:calc(145px - 32.5px);left:calc(50% - 32.5px);width:65px;height:65px;border-radius:50%;z-index:5;
+  background:radial-gradient(circle at 35% 30%,var(--gold-light),var(--gold) 55%,var(--gold-dark));color:#fff;display:flex;align-items:center;justify-content:center;
+  font-size:1.6rem;border:2px solid var(--gold-light);animation:sealGlow 3s infinite;transition:opacity .3s}
+.envelope-wrapper.open .envelope-flap{transform:rotateX(180deg);z-index:1}
+.envelope-wrapper.open .seal{opacity:0}
+.envelope-text{margin-top:50px;color:var(--gold-light);font-family:var(--f-sans);font-size:.85rem;letter-spacing:.35em;text-transform:uppercase;font-weight:600;animation:pulse 2.5s infinite}
 
-            --font-title: 'Playfair Display', serif;
-            --font-serif: 'Cormorant Garamond', serif;
-            --font-script: 'Great Vibes', cursive;
-            --font-body: 'Lora', serif;
-            --font-sans: 'Montserrat', sans-serif;
+/* ===== AUDIO ===== */
+#audio-btn{position:fixed;bottom:22px;right:22px;width:50px;height:50px;border-radius:50%;display:none;align-items:center;justify-content:center;
+  background:var(--gold-dark);color:#fff;border:2px solid var(--gold-light);font-size:1.05rem;cursor:pointer;z-index:9000;box-shadow:0 8px 24px rgba(0,0,0,.4);transition:transform .3s,background .3s}
+#audio-btn:hover{transform:scale(1.08);background:var(--gold)}
+#audio-btn:focus-visible,.btn:focus-visible{outline:3px solid var(--gold-light);outline-offset:3px}
 
-            /* Borde de papel rasgado */
-            --torn: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 16' preserveAspectRatio='none'%3E%3Cpath d='M0 16V8l6-2 5 3 7-4 7 3 6-4 8 3 7-2 6 4 8-3 8 2 7-4 8 3 7-2 7 4 8-3 8 2 7-4 8 3 7-2 7 4 8-3 8 2 7-4 8 3 7-2 7 4 8-3 5 2V16z'/%3E%3C/svg%3E");
-        }
+/* ===== TARJETA ===== */
+#invitation-content{display:flex;justify-content:center;padding:28px 12px 40px;visibility:hidden;opacity:0;transition:opacity 1s}
+.invitation-card{width:100%;max-width:470px;background:var(--ivory);border-radius:6px;overflow:hidden;
+  border:2px solid var(--gold);outline:1px solid var(--gold-light);outline-offset:-9px;box-shadow:0 30px 80px rgba(0,0,0,.6)}
+.sec{position:relative;text-align:center;padding:60px 28px 54px;background:var(--bg,var(--ivory))}
+.sec.cream{--bg:var(--cream)}
+.sec.wood{--bg:var(--wood-2);color:var(--ivory)}
+.sec+.sec,.photo+.sec,.sec+.photo{border-top:1px solid var(--line)}
 
-        * { box-sizing: border-box; margin: 0; padding: 0; }
+/* Encabezados, divisores, soga */
+.sec-head{display:flex;align-items:center;justify-content:center;gap:14px;margin-bottom:10px;color:var(--gold)}
+.sec-title{font-family:var(--f-western);font-weight:400;font-size:1.25rem;letter-spacing:.08em;color:var(--gold-dark)}
+.wood .sec-title{color:var(--gold-light)}
+.kicker{font-family:var(--f-sans);font-size:.72rem;font-weight:500;letter-spacing:.3em;text-transform:uppercase;color:var(--gold-dark)}
+.divider{display:flex;align-items:center;justify-content:center;margin:34px 0;color:var(--gold);width:100%}
+.divider::before,.divider::after{content:"";flex:1;max-width:110px;height:6px;margin:0 14px;
+  background:repeating-linear-gradient(135deg,var(--gold) 0 2px,transparent 2px 5px);opacity:.6;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.divider i{font-size:1rem}
 
-        body {
-            background-color: #2F3126;
-            background-image: radial-gradient(circle at 50% 0%, #4a4d3a 0%, #2F3126 60%);
-            background-attachment: fixed;
-            color: var(--ink);
-            font-family: var(--font-body);
-            overflow-x: hidden;
-        }
+/* Botones */
+.btn{display:inline-block;margin-top:20px;padding:14px 32px;text-decoration:none;cursor:pointer;border-radius:3px;
+  font-family:var(--f-sans);font-size:.72rem;font-weight:600;letter-spacing:.2em;text-transform:uppercase;
+  background:linear-gradient(180deg,var(--gold),var(--gold-dark));color:#fff;border:1px solid var(--gold-dark);transition:all .3s}
+.btn:hover{transform:translateY(-2px);box-shadow:0 10px 22px rgba(143,111,37,.4)}
+.btn i{margin-right:8px}
+.btn-outline{background:transparent;color:var(--gold-dark)}
+.btn-outline:hover{background:var(--gold);color:#fff}
+.btn-block{display:block;width:100%}
+.card-soft{width:100%;padding:32px 22px;margin-top:22px;background:rgba(255,255,255,.55);border:1px solid var(--line);border-radius:4px}
 
-        /* ==========================================================================
-           ANIMACIONES
-           ========================================================================== */
-        @keyframes pulseGlow {
-            0% { text-shadow: 0 0 5px rgba(212,175,55,0.4); transform: scale(1); }
-            50% { text-shadow: 0 0 20px rgba(212,175,55,0.8); transform: scale(1.02); }
-            100% { text-shadow: 0 0 5px rgba(212,175,55,0.4); transform: scale(1); }
-        }
-        /* Animación exclusiva del sello: solo brilla la sombra, NO usa transform */
-        @keyframes sealGlow {
-            0%, 100% { box-shadow: 0 0 12px rgba(212,175,55,0.6); }
-            50% { box-shadow: 0 0 28px rgba(212,175,55,1); }
-        }
-        @keyframes elegantFloat {
-            0% { transform: translateY(0); }
-            50% { transform: translateY(-12px); }
-            100% { transform: translateY(0); }
-        }
-        @keyframes sparkleAnim {
-            0%, 100% { opacity: 0; transform: scale(0.5) rotate(0deg); }
-            50% { opacity: 1; transform: scale(1.2) rotate(180deg); }
-        }
+/* ===== HERO ===== */
+.hero{position:relative;height:640px;overflow:hidden;background:var(--wood-2);color:#fff}
+.hero>img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.hero-overlay{position:absolute;inset:0;background:linear-gradient(to bottom,rgba(42,26,16,.15) 0%,rgba(42,26,16,.1) 30%,rgba(42,26,16,.85) 100%)}
+.hero-frame{position:absolute;inset:14px;border:2px solid var(--gold);pointer-events:none}
+.hero-frame::after{content:"";position:absolute;inset:5px;border:1px solid var(--gold-light);opacity:.7}
+.hero-content{position:absolute;left:0;right:0;bottom:0;padding:0 28px 58px;text-align:center}
+.hero-hat{font-size:1.7rem;color:var(--gold-light);margin-bottom:10px}
+.invite-text{font-family:var(--f-sans);font-size:.66rem;font-weight:500;letter-spacing:.3em;line-height:1.8;color:rgba(255,255,255,.92)}
+.invite-boda{font-family:var(--f-western);font-size:1.45rem;margin:8px 0 2px;color:var(--gold-light)}
+.names-title{font-family:var(--f-script);font-weight:400;font-size:clamp(3rem,13vw,4.2rem);line-height:1.15;color:var(--gold-light);text-shadow:0 2px 18px rgba(0,0,0,.5)}
+.names-title span{font-family:var(--f-serif);font-size:.55em;margin:0 6px}
+.hero-date{font-family:var(--f-serif);font-size:1.4rem;letter-spacing:.2em;margin-top:8px;color:#fff}
 
-        .glowing-icon { animation: pulseGlow 3s infinite ease-in-out; color: var(--gold); }
+/* ===== PADRES / FECHA ===== */
+.intro-text{font-family:var(--f-sans);font-size:.72rem;font-weight:500;letter-spacing:.28em;text-transform:uppercase;color:var(--gold-dark);margin-bottom:22px;line-height:1.7}
+.parents-title{font-family:var(--f-sans);font-size:.68rem;letter-spacing:.28em;color:var(--muted);text-transform:uppercase;margin-bottom:8px;font-weight:500}
+.parents-names{font-family:var(--f-serif);font-style:italic;font-size:1.6rem;line-height:1.35;margin-bottom:26px;color:var(--ink)}
+.save-date-date{font-family:var(--f-western);font-size:2.4rem;color:var(--gold-dark);margin:12px 0;letter-spacing:.04em}
 
-        .sparkle-container { position: absolute; width: 100%; height: 100%; top: 0; left: 0; pointer-events: none; z-index: 0; }
-        .sparkle { position: absolute; color: var(--gold); animation: sparkleAnim 3s infinite ease-in-out; filter: drop-shadow(0 0 5px var(--gold)); }
-        .sparkle:nth-child(1) { top: 5%; left: 15%; animation-delay: 0s; font-size: 1rem;}
-        .sparkle:nth-child(2) { top: 25%; right: 10%; animation-delay: 1.2s; font-size: 1.5rem;}
-        .sparkle:nth-child(3) { bottom: 15%; left: 20%; animation-delay: 0.7s; font-size: 1.2rem;}
-        .sparkle:nth-child(4) { bottom: 5%; right: 15%; animation-delay: 2.1s; font-size: 1rem;}
+.calendar-wrapper{width:100%;max-width:330px;margin:34px auto 10px;font-family:var(--f-sans)}
+.calendar-month{text-transform:uppercase;letter-spacing:.3em;margin-bottom:18px;font-weight:500;color:var(--gold-dark);font-size:.8rem}
+.calendar-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:6px;text-align:center}
+.calendar-header{font-weight:500;color:var(--muted);margin-bottom:8px;font-size:.68rem}
+.calendar-day{padding:9px 0;color:var(--ink);font-size:.85rem}
+.calendar-day.highlight{background:var(--gold);color:#fff;border-radius:50%;font-weight:600;box-shadow:0 6px 16px rgba(143,111,37,.45)}
 
-        /* Transiciones de aparición */
-        .fade-in {
-            opacity: 0; transform: translateY(26px);
-            transition: opacity 1.1s cubic-bezier(0.22, 1, 0.36, 1), transform 1.1s cubic-bezier(0.22, 1, 0.36, 1);
-        }
-        .fade-in.visible { opacity: 1; transform: translateY(0); }
+#countdown-timer{display:grid;grid-template-columns:repeat(4,1fr);align-items:center;margin:36px 0 6px;width:100%}
+#countdown-timer .cd{display:flex;flex-direction:column;align-items:center;gap:4px;border-left:1px solid var(--line);padding:4px 0}
+#countdown-timer .cd:first-child{border-left:none}
+#countdown-timer b{font-family:var(--f-serif);font-weight:500;font-size:2.5rem;line-height:1;color:var(--gold-dark)}
+#countdown-timer .cd span{font-family:var(--f-serif);font-size:.95rem;color:var(--muted)}
 
-        .scale-in { opacity: 0; transform: scale(0.95); transition: all 1.1s cubic-bezier(0.22, 1, 0.36, 1); }
-        .scale-in.visible { opacity: 1; transform: scale(1); }
+.photo{position:relative;height:440px;background:var(--cream);overflow:hidden}
+.photo img{width:100%;height:100%;object-fit:cover;display:block}
 
-        /* ==========================================================================
-           PANTALLA DEL SOBRE ANIMADO (SELLO CENTRADO EN LA PUNTA DE LA SOLAPA)
-           ========================================================================== */
-        #envelope-screen {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100vh;
-            background-color: var(--dark-contrast);
-            background-image: url('https://www.transparenttextures.com/patterns/stardust.png');
-            z-index: 9999; display: flex; flex-direction: column; align-items: center; justify-content: center;
-            transition: opacity 1s ease, visibility 1s ease;
-        }
-        .envelope-wrapper { position: relative; width: 340px; height: 230px; z-index: 2; cursor: pointer; perspective: 1000px; transition: transform 0.3s ease; animation: elegantFloat 5s infinite ease-in-out;}
-        .envelope-wrapper:hover { transform: scale(1.05); }
-        .envelope-body { position: absolute; inset: 0; background-color: var(--cream); border-radius: 4px; box-shadow: 0 15px 40px rgba(0,0,0,0.6), 0 0 40px rgba(212,175,55,0.4); overflow: hidden; }
-        .envelope-front { position: absolute; inset: 0; z-index: 3; background: #FAF5E6; clip-path: polygon(0 100%, 0 0, 50% 55%, 100% 0, 100% 100%); pointer-events: none; }
-        .envelope-flap {
-            position: absolute; top: 0; left: 0; width: 100%; height: 145px;
-            background-color: var(--cream);
-            clip-path: polygon(0 0, 100% 0, 50% 100%);
-            transform-origin: top; transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1); z-index: 4;
-        }
-        .seal {
-            position: absolute;
-            top: calc(145px - 32.5px);
-            left: calc(50% - 32.5px);
-            width: 65px; height: 65px; background: radial-gradient(circle, var(--gold) 0%, var(--gold-dark) 100%);
-            border-radius: 50%; display: flex; align-items: center; justify-content: center; color: var(--white);
-            font-family: var(--font-title); font-size: 1.8rem; z-index: 5; transition: opacity 0.3s ease;
-            box-shadow: 0 0 20px rgba(212,175,55,0.9); border: 2px solid #FFF;
-            animation: sealGlow 3s infinite ease-in-out;
-        }
-        .envelope-wrapper.open .envelope-flap { transform: rotateX(180deg); z-index: 1; }
-        .envelope-wrapper.open .seal { opacity: 0; }
-        .envelope-text { position: relative; z-index: 2; color: var(--gold); font-family: var(--font-sans); font-size: 0.95rem; letter-spacing: 4px; margin-top: 50px; text-transform: uppercase; animation: pulseGlow 2.5s infinite alternate; font-weight: 600;}
+/* ===== ITINERARIO ===== */
+.timeline{position:relative;max-width:330px;margin:34px auto 0;text-align:left}
+.timeline::before{content:'';position:absolute;left:4px;top:22px;bottom:22px;width:1px;background:var(--gold)}
+.timeline-item{position:relative;display:flex;align-items:center;gap:16px;padding:16px 0 16px 34px}
+.timeline-item::before{content:'';position:absolute;left:0;top:50%;width:9px;height:9px;margin-top:-4.5px;border-radius:50%;background:var(--gold)}
+.timeline-icon{width:54px;flex-shrink:0;text-align:center;font-size:1.9rem;color:var(--gold-dark)}
+.timeline-time{font-family:var(--f-serif);font-weight:600;font-size:1.25rem;color:var(--gold-dark);letter-spacing:.06em}
+.timeline-event{font-family:var(--f-serif);font-style:italic;font-size:1.2rem;color:var(--ink);margin-top:2px}
 
-        /* ==========================================================================
-           BOTÓN DE AUDIO FLOTANTE
-           ========================================================================== */
-        #audio-btn {
-            position: fixed; bottom: 22px; right: 22px; background-color: var(--olive); color: #fff;
-            border: 2px solid rgba(255,255,255,0.8); border-radius: 50%; width: 50px; height: 50px; font-size: 1.05rem;
-            cursor: pointer; z-index: 9000; box-shadow: 0 8px 24px rgba(0,0,0,0.35);
-            transition: transform 0.3s ease, background-color 0.3s ease; display: none; align-items: center; justify-content: center;
-        }
-        #audio-btn:hover { transform: scale(1.08); background-color: var(--olive-dark); }
+.big-icon{font-size:2.3rem;color:var(--gold);margin-bottom:14px}
+.serif-title{font-family:var(--f-western);font-weight:400;font-size:2rem;color:var(--ink);line-height:1.15;margin:12px 0 18px}
+.soft-text{font-size:1rem;line-height:1.75;color:var(--ink);opacity:.92}
+.colors{display:flex;justify-content:center;gap:18px;margin:6px 0 20px}
+.color-swatch{position:relative;width:42px;height:42px;border-radius:50%;border:2px solid var(--gold);box-shadow:0 6px 16px rgba(0,0,0,.15)}
+.color-swatch.no::after{content:"";position:absolute;left:50%;top:-6px;bottom:-6px;width:2px;background:#9b3b2a;transform:rotate(45deg)}
 
-        /* ==========================================================================
-           TARJETA PRINCIPAL (UNA COLUMNA)
-           ========================================================================== */
-        #invitation-content { display: flex; justify-content: center; padding: 28px 12px 40px; visibility: hidden; opacity: 0; transition: opacity 1s ease; }
-        .invitation-card {
-            width: 100%; max-width: 470px; background: var(--paper);
-            border-radius: 30px; overflow: hidden;
-            box-shadow: 0 30px 80px rgba(0,0,0,0.5);
-        }
+/* ===== LOCACIONES ===== */
+.venue-type{font-family:var(--f-sans);font-size:.72rem;letter-spacing:.3em;color:var(--gold-dark);font-weight:500;margin:10px 0 8px}
+.venue-name{font-family:var(--f-serif);font-style:italic;font-weight:500;font-size:2.1rem;color:var(--ink);line-height:1.15}
+.venue-sub{display:block;margin-top:10px;font-family:var(--f-sans);font-style:normal;font-size:.72rem;letter-spacing:.3em;text-transform:uppercase;font-weight:500;color:var(--gold-dark)}
+.map-container{width:100%;height:260px;margin:22px 0 4px;border-radius:4px;overflow:hidden;border:3px solid var(--gold);box-shadow:0 14px 34px rgba(0,0,0,.18)}
+.map-container iframe{width:100%;height:100%;border:none}
 
-        /* Secciones */
-        .sec { position: relative; text-align: center; padding: 64px 28px 56px; background: var(--bg); }
-        .sec.paper { --bg: var(--paper); }
-        .sec.blue  { --bg: var(--sage-blue); }
-        .sec.olive { --bg: var(--olive-dark); color: #F5F0E8; }
+/* ===== SOLO ADULTOS ===== */
+.adults-box{margin-top:22px;padding:30px 22px;border:1px solid var(--gold);outline:1px solid var(--gold-light);outline-offset:-7px;background:rgba(255,255,255,.5)}
+.adults-box .soft-text{font-style:italic}
 
-        /* Bordes de papel rasgado (arriba: .torn / abajo: .torn-bottom) */
-        .torn::before, .torn-bottom::after {
-            content: ""; position: absolute; left: 0; width: 100%; height: 16px;
-            background: var(--bg);
-            -webkit-mask: var(--torn) repeat-x 0 0 / 200px 16px;
-            mask: var(--torn) repeat-x 0 0 / 200px 16px;
-            z-index: 3; pointer-events: none;
-        }
-        .torn::before { top: -15px; }
-        .torn-bottom::after { bottom: -15px; transform: scaleY(-1); }
+/* ===== FORMULARIOS ===== */
+.form-group{margin-bottom:22px;text-align:left;width:100%}
+.form-group label{display:block;font-family:var(--f-sans);font-size:.72rem;color:var(--gold-dark);margin-bottom:9px;letter-spacing:.2em;font-weight:500;text-transform:uppercase}
+.form-group input[type="text"],.form-group select,.form-group textarea{width:100%;padding:15px 18px;background:rgba(255,255,255,.9);border:1px solid var(--line);border-radius:3px;font-family:var(--f-body);font-size:1rem;color:var(--ink);outline:none;transition:all .3s}
+.form-group input:focus,.form-group select:focus,.form-group textarea:focus{border-color:var(--gold);box-shadow:0 0 0 4px rgba(201,162,75,.22);background:#fff}
+.radio-container{display:flex;gap:20px}
+.radio-label{display:flex;align-items:center;gap:8px;cursor:pointer;color:var(--ink);font-weight:500}
+.radio-label input{accent-color:var(--gold-dark);width:17px;height:17px}
 
-        /* Encabezados con hojas */
-        .sec-head { display: flex; align-items: center; justify-content: center; gap: 14px; margin-bottom: 8px; color: var(--olive); }
-        .sec-head i:first-child { transform: scaleX(-1); }
-        .sec-head i { font-size: 1rem; }
-        .sec-title { font-family: var(--font-sans); font-size: 0.85rem; font-weight: 500; letter-spacing: 0.32em; text-transform: uppercase; color: var(--ink); }
-        .olive .sec-title, .olive .sec-head { color: #F5F0E8; }
+/* ===== GRACIAS ===== */
+.thanks-script{font-family:var(--f-script);font-weight:400;font-size:4.2rem;line-height:1.1;margin-bottom:16px;color:var(--gold-light)}
+.thanks-text{font-family:var(--f-serif);font-style:italic;font-size:1.4rem;line-height:1.5;color:var(--ivory);margin-bottom:30px}
+.thanks-names{font-family:var(--f-western);letter-spacing:.25em;font-size:.95rem;color:var(--gold-light)}
 
-        .kicker { font-family: var(--font-sans); font-size: 0.72rem; font-weight: 500; letter-spacing: 0.3em; text-transform: uppercase; color: var(--olive-dark); }
-
-        .divider { display: flex; align-items: center; justify-content: center; margin: 34px 0; color: var(--olive); width: 100%; }
-        .divider::before, .divider::after { content: ""; flex: 1; max-width: 110px; height: 1px; background: var(--line); margin: 0 14px; }
-        .divider i { font-size: 0.9rem; }
-
-        /* Botones */
-        .btn {
-            display: inline-block; background-color: var(--olive); color: #fff;
-            padding: 14px 32px; text-decoration: none; font-family: var(--font-sans); font-size: 0.72rem; font-weight: 500;
-            letter-spacing: 0.2em; text-transform: uppercase; border-radius: 999px; margin-top: 20px;
-            border: 1px solid var(--olive); cursor: pointer; transition: all 0.35s ease;
-        }
-        .btn:hover { background-color: var(--olive-dark); border-color: var(--olive-dark); transform: translateY(-2px); box-shadow: 0 10px 22px rgba(95,101,72,0.35); }
-        .btn i { margin-right: 8px; }
-        .btn-outline { background: transparent; color: var(--olive-dark); }
-        .btn-outline:hover { background: var(--olive); color: #fff; }
-        .btn-block { width: 100%; }
-        .btn-dark { background: var(--olive-dark); border-color: var(--olive-dark); }
-
-        /* Tarjeta suave */
-        .card-soft {
-            width: 100%; padding: 34px 22px; margin-top: 22px;
-            background: rgba(255,255,255,0.55); border: 1px solid var(--line); border-radius: 22px;
-        }
-
-        /* ==========================================================================
-           HERO
-           ========================================================================== */
-        .hero { position: relative; height: 640px; overflow: hidden; background: #6e6d59; color: #fff; }
-        .hero > img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
-        .hero-overlay { position: absolute; inset: 0; background: linear-gradient(to bottom, rgba(0,0,0,0.05) 0%, rgba(0,0,0,0.05) 35%, rgba(30,28,18,0.72) 100%); }
-        .hero-content { position: absolute; left: 0; right: 0; bottom: 0; padding: 0 24px 56px; text-align: center; }
-        .invite-text { font-family: var(--font-sans); font-size: 0.68rem; font-weight: 500; letter-spacing: 0.3em; line-height: 1.8; color: rgba(255,255,255,0.92); }
-        .invite-boda { font-family: var(--font-serif); font-style: italic; font-size: 1.7rem; margin: 6px 0 2px; color: #fff; }
-        .names-title { font-family: var(--font-script); font-weight: 400; font-size: clamp(2.8rem, 12vw, 3.9rem); line-height: 1.15; color: #fff; text-shadow: 0 2px 18px rgba(0,0,0,0.35); }
-        .names-title span { font-family: var(--font-serif); font-size: 0.55em; margin: 0 6px; opacity: 0.9; }
-        .hero-date { font-family: var(--font-serif); font-size: 1.35rem; letter-spacing: 0.18em; margin-top: 8px; color: #fff; }
-        .hero-leaf { margin-top: 12px; color: rgba(255,255,255,0.85); font-size: 1rem; }
-
-        /* ==========================================================================
-           PADRES Y FECHA
-           ========================================================================== */
-        .intro-text { font-family: var(--font-sans); font-size: 0.72rem; font-weight: 500; letter-spacing: 0.3em; text-transform: uppercase; color: var(--olive-dark); margin-bottom: 22px; }
-        .parents-section { width: 100%; }
-        .parents-title { font-family: var(--font-sans); font-size: 0.68rem; letter-spacing: 0.28em; color: var(--muted); text-transform: uppercase; margin-bottom: 8px; font-weight: 500; }
-        .parents-names { font-family: var(--font-serif); font-style: italic; font-size: 1.65rem; line-height: 1.35; margin-bottom: 26px; color: var(--ink); }
-
-        .save-date-date { font-family: var(--font-serif); font-size: 3.2rem; font-weight: 500; color: var(--olive-dark); margin: 10px 0; letter-spacing: 0.04em; }
-
-        /* Calendario */
-        .calendar-wrapper { width: 100%; max-width: 330px; margin: 34px auto 10px; font-family: var(--font-sans); font-size: 0.9rem; }
-        .calendar-month { text-transform: uppercase; letter-spacing: 0.3em; margin-bottom: 18px; font-weight: 500; color: var(--olive-dark); font-size: 0.8rem; }
-        .calendar-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 6px; text-align: center; }
-        .calendar-header { font-weight: 500; color: var(--muted); margin-bottom: 8px; font-size: 0.68rem; letter-spacing: 0.08em; }
-        .calendar-day { padding: 9px 0; color: var(--ink); font-size: 0.85rem; }
-        .calendar-day.highlight { background-color: var(--olive); color: #fff; border-radius: 50%; font-weight: 600; box-shadow: 0 6px 16px rgba(95,101,72,0.4); }
-
-        /* Cuenta regresiva */
-        #countdown-timer {
-            display: grid; grid-template-columns: repeat(4, 1fr); align-items: center;
-            margin: 36px 0 6px; width: 100%; padding: 6px 0;
-        }
-        #countdown-timer .cd { display: flex; flex-direction: column; align-items: center; gap: 4px; border-left: 1px solid var(--line); padding: 4px 0; }
-        #countdown-timer .cd:first-child { border-left: none; }
-        #countdown-timer b { font-family: var(--font-serif); font-weight: 500; font-size: 2.5rem; line-height: 1; color: var(--olive-dark); }
-        #countdown-timer .cd span { font-family: var(--font-serif); font-size: 0.95rem; color: var(--muted); }
-
-        /* ==========================================================================
-           FOTO INTERMEDIA
-           ========================================================================== */
-        .photo { position: relative; height: 440px; background: #cfc8b8; overflow: hidden; }
-        .photo img { width: 100%; height: 100%; object-fit: cover; display: block; }
-
-        /* ==========================================================================
-           ITINERARIO
-           ========================================================================== */
-        .timeline { position: relative; max-width: 330px; margin: 34px auto 0; text-align: left; }
-        .timeline::before { content: ''; position: absolute; left: 4px; top: 22px; bottom: 22px; width: 1px; background: var(--olive); }
-        .timeline-item { position: relative; display: flex; align-items: center; gap: 16px; padding: 16px 0 16px 34px; }
-        .timeline-item::before { content: ''; position: absolute; left: 0; top: 50%; width: 9px; height: 9px; margin-top: -4.5px; border-radius: 50%; background: var(--olive); }
-        .timeline-icon { width: 54px; flex-shrink: 0; text-align: center; font-size: 2rem; color: var(--muted); }
-        .timeline-time { font-family: var(--font-serif); font-weight: 500; font-size: 1.25rem; color: var(--olive-dark); letter-spacing: 0.06em; }
-        .timeline-event { font-family: var(--font-serif); font-style: italic; font-size: 1.2rem; color: var(--ink); margin-top: 2px; }
-
-        /* Vestimenta */
-        .big-icon { font-size: 2.4rem; color: var(--muted); margin-bottom: 14px; }
-        .serif-title { font-family: var(--font-serif); font-style: italic; font-weight: 500; font-size: 2.6rem; color: var(--ink); line-height: 1.1; margin: 6px 0 18px; }
-        .colors { display: flex; justify-content: center; gap: 16px; margin: 6px 0 20px; }
-        .color-swatch { width: 40px; height: 40px; border-radius: 50%; border: 2px solid #fff; box-shadow: 0 6px 16px rgba(0,0,0,0.15); transition: transform 0.35s ease; }
-        .color-swatch:hover { transform: scale(1.15); }
-        .soft-text { font-family: var(--font-body); font-size: 1rem; line-height: 1.7; color: var(--ink); opacity: 0.9; }
-
-        /* ==========================================================================
-           LOCACIONES
-           ========================================================================== */
-        .venue-type { font-family: var(--font-sans); font-size: 0.72rem; letter-spacing: 0.3em; color: var(--olive-dark); font-weight: 500; margin-bottom: 8px; margin-top: 10px; }
-        .venue-name { font-family: var(--font-serif); font-style: italic; font-weight: 500; font-size: 2.1rem; color: var(--ink); margin-bottom: 6px; line-height: 1.15; }
-        .venue-sub { font-family: var(--font-sans); font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.3em; display: block; margin-top: 10px; font-weight: 500; color: var(--olive-dark); font-style: normal; }
-        .map-container { width: 100%; height: 260px; margin: 22px 0 4px; border-radius: 22px; overflow: hidden; border: 4px solid #fff; box-shadow: 0 14px 34px rgba(0,0,0,0.12); }
-        .map-container iframe { width: 100%; height: 100%; border: none; }
-
-        /* ==========================================================================
-           FORMULARIOS
-           ========================================================================== */
-        .form-group { margin-bottom: 22px; text-align: left; width: 100%; }
-        .form-group label { display: block; font-family: var(--font-sans); font-size: 0.72rem; color: var(--olive-dark); margin-bottom: 9px; letter-spacing: 0.2em; font-weight: 500; text-transform: uppercase; }
-        .form-group input[type="text"], .form-group select, .form-group textarea {
-            width: 100%; padding: 15px 18px; background: rgba(255,255,255,0.85); border: 1px solid var(--line);
-            border-radius: 14px; font-family: var(--font-body); font-size: 1rem; color: var(--ink); outline: none; transition: all 0.3s;
-        }
-        .form-group input[type="text"]:focus, .form-group select:focus, .form-group textarea:focus { border-color: var(--olive); box-shadow: 0 0 0 4px rgba(123,129,96,0.18); background: #fff; }
-        .radio-container { display: flex; gap: 20px; }
-        .radio-label { display: flex; align-items: center; gap: 8px; cursor: pointer; font-size: 1rem; color: var(--ink); font-weight: 500; }
-        .radio-label input { accent-color: var(--olive); width: 17px; height: 17px; }
-
-        /* Gracias */
-        .thanks-script { font-family: var(--font-script); font-weight: 400; font-size: 4.2rem; line-height: 1.1; margin-bottom: 16px; color: #fff; }
-        .thanks-text { font-family: var(--font-serif); font-style: italic; font-size: 1.4rem; line-height: 1.5; color: #F5F0E8; margin-bottom: 30px; }
-        .thanks-names { font-family: var(--font-sans); letter-spacing: 0.4em; font-size: 0.85rem; text-transform: uppercase; color: #F5F0E8; font-weight: 500; }
-
-        @media (max-width: 520px) {
-            #invitation-content { padding: 0; }
-            .invitation-card { border-radius: 0; max-width: 100%; }
-            .hero { height: 600px; }
-        }
-    </style>
+@media (max-width:520px){
+  #invitation-content{padding:0}
+  .invitation-card{border-radius:0;max-width:100%;border-left:0;border-right:0}
+  .hero{height:600px}
+}
+</style>
 </head>
 <body>
 
-    <!-- AUDIO (Oculto) -->
-    <audio id="bg-audio" loop>
-        <source src="assets/song.mp3" type="audio/mpeg">
-    </audio>
+<audio id="bg-audio" loop><source src="assets/song.mp3" type="audio/mpeg"></audio>
 
-    <!-- PANTALLA DEL SOBRE -->
-    <div id="envelope-screen">
-        <div class="sparkle-container">
-            <i class="fa-solid fa-star sparkle"></i>
-            <i class="fa-solid fa-sparkles sparkle"></i>
-            <i class="fa-solid fa-star sparkle"></i>
-            <i class="fa-solid fa-sparkles sparkle"></i>
-        </div>
-        <div class="envelope-wrapper" onclick="openInvitation()">
-            <div class="envelope-front"></div>
-            <div class="envelope-flap"></div>
-            <div class="seal">B&F</div>
-            <div class="envelope-body"></div>
-        </div>
-        <div class="envelope-text">Toca para abrir</div>
+<!-- SOBRE -->
+<div id="envelope-screen">
+  <div class="envelope-wrapper" onclick="openInvitation()" role="button" tabindex="0" aria-label="Abrir invitación">
+    <div class="envelope-front"></div>
+    <div class="envelope-flap"></div>
+    <div class="seal"><i class="fa-solid fa-hat-cowboy"></i></div>
+    <div class="envelope-body"></div>
+  </div>
+  <div class="envelope-text">Toca para abrir</div>
+</div>
+
+<button id="audio-btn" onclick="toggleAudio()" aria-label="Música"><i class="fa-solid fa-music" id="audio-icon"></i></button>
+
+<div id="invitation-content">
+<div class="invitation-card">
+
+  <!-- HERO -->
+  <header class="hero">
+    <img src="assets/1.jpg" alt="Los novios">
+    <div class="hero-overlay"></div>
+    <div class="hero-frame"></div>
+    <div class="hero-content">
+      <div class="hero-hat fade-in"><i class="fa-solid fa-hat-cowboy"></i></div>
+      <p class="invite-text fade-in">TENEMOS EL HONOR DE INVITARTE A NUESTRA</p>
+      <div class="invite-boda fade-in">Boda Religiosa</div>
+      <h1 class="names-title fade-in">Blasy <span>&amp;</span> Fidel</h1>
+      <p class="hero-date fade-in">22.11.2026</p>
+    </div>
+  </header>
+
+  <!-- PADRES, FECHA, CALENDARIO -->
+  <section class="sec">
+    <p class="intro-text fade-in">Con la bendición de Dios y en compañía de nuestros padres</p>
+
+    <div class="fade-in">
+      <p class="parents-title">Padres de la novia</p>
+      <p class="parents-names">José Vázquez Jacobo †<br>Cecilia Acosta de Vázquez †</p>
+      <p class="parents-title">Padres del novio</p>
+      <p class="parents-names">Pedro Pérez Lozano †<br>Teodola Castro Viuda de Pérez</p>
     </div>
 
-    <!-- BOTÓN DE MÚSICA STICKY -->
-    <button id="audio-btn" onclick="toggleAudio()">
-        <i class="fa-solid fa-music" id="audio-icon"></i>
-    </button>
+    <div class="divider fade-in"><i class="fa-solid fa-star"></i></div>
 
-    <!-- TARJETA DE INVITACIÓN -->
-    <div id="invitation-content">
-        <div class="invitation-card">
+    <p class="intro-text fade-in">Y nuestros padrinos</p>
+    <p class="parents-names fade-in" style="margin-bottom:10px">Vicente Reyna<br>y María de los Ángeles de Reyna</p>
 
-            <!-- ================= HERO ================= -->
-            <header class="hero">
-                <img src="assets/1.jpg" alt="Los Novios">
-                <div class="hero-overlay"></div>
-                <div class="hero-content">
-                    <p class="invite-text fade-in">TENEMOS EL HONOR DE INVITARTE A NUESTRA</p>
-                    <div class="invite-boda fade-in">Boda Religiosa</div>
-                    <h1 class="names-title fade-in">Blasy <span>&amp;</span> Fidel</h1>
-                    <p class="hero-date fade-in">22.11.2026</p>
-                    <div class="hero-leaf fade-in"><i class="fa-solid fa-leaf"></i></div>
-                </div>
-            </header>
+    <div class="divider fade-in"><i class="fa-solid fa-horse-head"></i></div>
 
-            <!-- ================= PADRES, FECHA, CALENDARIO Y CUENTA REGRESIVA ================= -->
-            <section class="sec paper torn torn-bottom">
-
-                <p class="intro-text fade-in">Con la bendición de nuestros padres</p>
-
-                <div class="parents-section fade-in">
-                    <p class="parents-title">Padres de la novia</p>
-                    <p class="parents-names">José Vázquez †<br>Cecilia Acosta de Vázquez †</p>
-
-                    <p class="parents-title" style="margin-top: 8px;">Padres del novio</p>
-                    <p class="parents-names">Pedro Pérez Lozano †<br>Teodola Castro Viuda de Pérez</p>
-                </div>
-
-                <div class="divider fade-in"><i class="fa-solid fa-dove"></i></div>
-
-                <p class="intro-text fade-in">Y nuestros padrinos</p>
-                <div class="parents-section fade-in">
-                    <p class="parents-names" style="margin-bottom: 10px;">Vicente Reyna<br>y María de los Ángeles de Reyna</p>
-                </div>
-
-                <div class="divider fade-in"><i class="fa-solid fa-leaf"></i></div>
-
-                <div class="fade-in">
-                    <p class="kicker">RESERVA LA FECHA</p>
-                    <div class="save-date-date">22 &bull; 11 &bull; 2026</div>
-                    <p class="kicker">DOMINGO</p>
-                </div>
-
-                <!-- Calendario Noviembre 2026 -->
-                <div class="calendar-wrapper fade-in">
-                    <div class="calendar-month">Noviembre 2026</div>
-                    <div class="calendar-grid calendar-header">
-                        <div>DOM</div><div>LUN</div><div>MAR</div><div>MIÉ</div><div>JUE</div><div>VIE</div><div>SÁB</div>
-                    </div>
-                    <div class="calendar-grid">
-                        <div class="calendar-day">1</div><div class="calendar-day">2</div><div class="calendar-day">3</div><div class="calendar-day">4</div><div class="calendar-day">5</div><div class="calendar-day">6</div><div class="calendar-day">7</div>
-                        <div class="calendar-day">8</div><div class="calendar-day">9</div><div class="calendar-day">10</div><div class="calendar-day">11</div><div class="calendar-day">12</div><div class="calendar-day">13</div><div class="calendar-day">14</div>
-                        <div class="calendar-day">15</div><div class="calendar-day">16</div><div class="calendar-day">17</div><div class="calendar-day">18</div><div class="calendar-day">19</div><div class="calendar-day">20</div><div class="calendar-day">21</div>
-                        <div class="calendar-day highlight">22</div><div class="calendar-day">23</div><div class="calendar-day">24</div><div class="calendar-day">25</div><div class="calendar-day">26</div><div class="calendar-day">27</div><div class="calendar-day">28</div>
-                        <div class="calendar-day">29</div><div class="calendar-day">30</div><div></div><div></div><div></div><div></div><div></div>
-                    </div>
-                </div>
-
-                <div id="countdown-timer" class="fade-in">
-                    <div class="cd"><b id="dias">00</b><span>Días</span></div>
-                    <div class="cd"><b id="horas">00</b><span>Hrs</span></div>
-                    <div class="cd"><b id="minutos">00</b><span>Min</span></div>
-                    <div class="cd"><b id="segundos">00</b><span>Seg</span></div>
-                </div>
-
-                <button onclick="downloadICS()" class="btn fade-in"><i class="fa-regular fa-calendar-plus"></i> AGREGAR AL CALENDARIO</button>
-            </section>
-
-            <!-- ================= FOTO ================= -->
-            <div class="photo">
-                <img src="assets/2.jpg" alt="Momentos Especiales">
-            </div>
-
-            <!-- ================= ITINERARIO Y VESTIMENTA ================= -->
-            <section class="sec paper torn">
-                <div class="sec-head fade-in"><i class="fa-solid fa-leaf"></i><h2 class="sec-title">ITINERARIO</h2><i class="fa-solid fa-leaf"></i></div>
-
-                <div class="timeline">
-                    <div class="timeline-item fade-in">
-                        <div class="timeline-icon"><i class="fa-solid fa-church"></i></div>
-                        <div>
-                            <div class="timeline-time">5:00 PM</div>
-                            <div class="timeline-event">Ceremonia Religiosa</div>
-                        </div>
-                    </div>
-                    <div class="timeline-item fade-in">
-                        <div class="timeline-icon"><i class="fa-solid fa-champagne-glasses"></i></div>
-                        <div>
-                            <div class="timeline-time">6:30 PM</div>
-                            <div class="timeline-event">Recepción</div>
-                        </div>
-                    </div>
-                    <div class="timeline-item fade-in">
-                        <div class="timeline-icon"><i class="fa-solid fa-music"></i></div>
-                        <div>
-                            <div class="timeline-time">7:00 PM</div>
-                            <div class="timeline-event">Vals de los novios</div>
-                        </div>
-                    </div>
-                    <div class="timeline-item fade-in">
-                        <div class="timeline-icon"><i class="fa-solid fa-utensils"></i></div>
-                        <div>
-                            <div class="timeline-time">8:00 PM</div>
-                            <div class="timeline-event">Cena</div>
-                        </div>
-                    </div>
-                    <div class="timeline-item fade-in">
-                        <div class="timeline-icon"><i class="fa-solid fa-guitar"></i></div>
-                        <div>
-                            <div class="timeline-time">8:30 PM</div>
-                            <div class="timeline-event">Grupo norteño en vivo</div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="divider fade-in" style="margin-top: 50px;"><i class="fa-solid fa-leaf"></i></div>
-
-                <div class="fade-in">
-                    <div class="big-icon"><i class="fa-solid fa-user-tie"></i></div>
-                    <p class="kicker">CÓDIGO DE VESTIMENTA</p>
-                    <p class="serif-title" style="margin-top: 14px;">Formal</p>
-                    <div class="colors">
-                        <div class="color-swatch" style="background-color: #FDFAF6;"></div>
-                        <div class="color-swatch" style="background-color: #F3E5AB;"></div>
-                        <div class="color-swatch" style="background-color: #D4AF37;"></div>
-                    </div>
-                    <p class="soft-text">Sugerimos inspirarse en nuestra paleta de colores (Ivory y Dorado).</p>
-                </div>
-            </section>
-
-            <!-- ================= MESA DE REGALOS ================= -->
-            <section class="sec blue torn">
-                <div class="fade-in">
-                    <div class="big-icon" style="color: var(--olive-dark);"><i class="fa-solid fa-envelope-open-text"></i></div>
-                    <p class="kicker">MESA DE REGALOS</p>
-                    <p class="serif-title" style="margin-top: 14px;">Lluvia de Sobres</p>
-                    <p class="soft-text">El mejor regalo es su presencia, pero si desean tener un detalle con nosotros, contaremos con lluvia de sobres el día del evento.</p>
-                </div>
-            </section>
-
-            <!-- ================= HOSPEDAJE Y LOCACIONES ================= -->
-            <section class="sec paper torn">
-
-                <div class="fade-in">
-                    <div class="big-icon"><i class="fa-solid fa-hotel"></i></div>
-                    <p class="kicker">HOSPEDAJE SUGERIDO</p>
-                    <p class="serif-title" style="font-size: 2.1rem; margin-top: 14px; margin-bottom: 6px;">CHN Monterrey Santa Fe</p>
-                    <p class="kicker" style="color: var(--muted); margin-bottom: 8px;">HOTEL ECONOMY</p>
-                    <a href="https://maps.app.goo.gl/2AqLpNBwRqMtXaD39" target="_blank" class="btn btn-block"><i class="fa-solid fa-location-arrow"></i> VER EN MAPA</a>
-                    <a href="https://www.chnhoteles.com/chn-monterrey-santafe/" target="_blank" class="btn btn-outline btn-block" style="margin-top: 12px;"><i class="fa-solid fa-globe"></i> SITIO WEB</a>
-                </div>
-
-                <div class="divider fade-in" style="margin-top: 56px;"><i class="fa-solid fa-leaf"></i></div>
-
-                <div class="sec-head fade-in"><i class="fa-solid fa-leaf"></i><h2 class="sec-title">LOCACIONES</h2><i class="fa-solid fa-leaf"></i></div>
-
-                <!-- Ceremonia -->
-                <div class="big-icon fade-in" style="margin-top: 34px;"><i class="fa-solid fa-church"></i></div>
-                <p class="venue-type fade-in">CEREMONIA</p>
-                <div class="venue-name fade-in">María Madre de la Iglesia</div>
-
-                <div class="map-container fade-in">
-                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3594.1926550046633!2d-100.3706311!3d25.731141800000003!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8662968c2cd1bd4f%3A0xcece72aa578935b6!2sMar%C3%ADa%20Madre%20de%20La%20Iglesia!5e0!3m2!1ses-419!2smx!4v1792185935345!5m2!1ses-419!2smx" allowfullscreen="" loading="lazy" referrerpolicy="strict-origin-when-cross-origin"></iframe>
-                </div>
-                <a href="https://maps.app.goo.gl/pGyTXaqWpeSJzF9q7" target="_blank" class="btn btn-block fade-in"><i class="fa-solid fa-location-arrow"></i> RUTA A LA IGLESIA</a>
-
-                <div class="divider fade-in" style="margin-top: 50px;"><i class="fa-solid fa-leaf"></i></div>
-
-                <!-- Recepción -->
-                <div class="big-icon fade-in"><i class="fa-solid fa-champagne-glasses"></i></div>
-                <p class="venue-type fade-in">RECEPCIÓN</p>
-                <div class="venue-name fade-in">La Amatista Eventos<span class="venue-sub">Salón Ámbar</span></div>
-
-                <div class="map-container fade-in">
-                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3593.2389879112575!2d-100.40391629999999!3d25.762668599999998!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x866290d2cfaa01c1%3A0x2ad3b22391485632!2sLa%20Amatista%20Eventos!5e0!3m2!1ses-419!2smx!4v1792186094315!5m2!1ses-419!2smx" allowfullscreen="" loading="lazy" referrerpolicy="strict-origin-when-cross-origin"></iframe>
-                </div>
-                <a href="https://maps.app.goo.gl/rPdpnJoUC5Zyeqer9" target="_blank" class="btn btn-block fade-in"><i class="fa-solid fa-location-arrow"></i> RUTA A LA RECEPCIÓN</a>
-            </section>
-
-            <!-- ================= ASISTENCIA ================= -->
-            <section class="sec blue torn">
-                <div class="sec-head fade-in"><i class="fa-solid fa-leaf"></i><h2 class="sec-title">ASISTENCIA</h2><i class="fa-solid fa-leaf"></i></div>
-
-                <div class="card-soft scale-in">
-                    <div id="paseSection" style="display: none; text-align: center; margin-bottom: 30px; border-bottom: 1px solid var(--line); padding-bottom: 28px;">
-                        <p class="kicker" style="margin-bottom: 10px;">PASE DE ENTRADA</p>
-                        <h2 id="guestNameDisplay" style="font-family: var(--font-serif); font-style: italic; font-weight: 500; font-size: 2.4rem; margin: 12px 0; color: var(--ink);">Invitado Especial</h2>
-                        <p style="font-size: 1.1rem; font-family: var(--font-body); color: var(--ink);">Lugares reservados: <span id="guestPassesDisplay" style="font-family: var(--font-serif); font-weight: 600; color: var(--olive-dark); font-size: 1.9rem;">2</span></p>
-                    </div>
-
-                    <p style="font-family: var(--font-sans); font-size: 0.72rem; letter-spacing: 0.08em; color: #b5533c; margin-bottom: 24px; font-weight: 600; text-align: center; line-height: 1.6;">
-                        <i class="fa-solid fa-circle-exclamation"></i> FAVOR DE CONFIRMAR ANTES DEL 08/11/2026
-                    </p>
-
-                    <form id="rsvpForm">
-                        <div id="genericRSVPInputs">
-                            <div class="form-group"><label>Nombre(s):</label><input type="text" id="rsvpNombre" placeholder="Ej. Familia Rodríguez"></div>
-                            <div class="form-group"><label>Apellido(s):</label><input type="text" id="rsvpApellido" placeholder="Ej. Rodríguez"></div>
-                            <div class="form-group">
-                                <label>¿Asistirás?:</label>
-                                <select id="rsvpAsistencia">
-                                    <option value="">Selecciona una opción</option>
-                                    <option value="¡Sí, ahí estaré!">¡Sí, acompañaremos a los novios!</option>
-                                    <option value="Lamentablemente no podré asistir">Lamentablemente no podremos asistir</option>
-                                </select>
-                            </div>
-                        </div>
-
-                        <div id="dynamicGuestList" style="width: 100%; text-align: left;"></div>
-
-                        <button type="button" onclick="sendRSVP()" class="btn btn-block" style="padding: 17px;">
-                            <i class="fa-brands fa-whatsapp"></i> CONFIRMAR ASISTENCIA
-                        </button>
-                    </form>
-                </div>
-            </section>
-
-            <!-- ================= BUENOS DESEOS ================= -->
-            <section class="sec paper torn">
-                <div class="sec-head fade-in"><i class="fa-solid fa-leaf"></i><h2 class="sec-title">BUENOS DESEOS</h2><i class="fa-solid fa-leaf"></i></div>
-
-                <div class="card-soft scale-in">
-                    <form id="wishesForm">
-                        <div class="form-group">
-                            <label>Escribe un mensaje para los novios:</label>
-                            <textarea id="wishesText" rows="5" required placeholder="¡Muchas felicidades en esta nueva etapa!"></textarea>
-                        </div>
-                        <button type="button" onclick="sendWishes()" class="btn btn-block btn-dark" style="padding: 17px;">
-                            <i class="fa-brands fa-whatsapp"></i> ENVIAR MENSAJE
-                        </button>
-                    </form>
-                </div>
-            </section>
-
-            <!-- ================= GRACIAS ================= -->
-            <section class="sec olive torn" style="padding-top: 80px; padding-bottom: 80px;">
-                <h3 class="thanks-script fade-in">¡Gracias!</h3>
-                <p class="thanks-text fade-in">Tu presencia hará de este día un momento inolvidable para nosotros.</p>
-                <div class="thanks-names fade-in">BLASY &amp; FIDEL</div>
-            </section>
-
-        </div>
+    <div class="fade-in">
+      <p class="intro-text" style="margin-bottom:6px">Tenemos el honor de invitarlos a nuestro enlace matrimonial que se celebrará el próximo domingo</p>
+      <div class="save-date-date">22 &bull; 11 &bull; 2026</div>
     </div>
 
-    <!-- ==========================================================================
-         SCRIPTS
-         ========================================================================== -->
-    <script>
-        // --- 1. SOBRE ANIMADO Y AUDIO ---
-        const audio = document.getElementById('bg-audio');
-        const audioIcon = document.getElementById('audio-icon');
-        const audioBtn = document.getElementById('audio-btn');
-        let envelopeOpened = false;
+    <div class="calendar-wrapper fade-in">
+      <div class="calendar-month">Noviembre 2026</div>
+      <div class="calendar-grid calendar-header"><div>DOM</div><div>LUN</div><div>MAR</div><div>MIÉ</div><div>JUE</div><div>VIE</div><div>SÁB</div></div>
+      <div class="calendar-grid">
+        <div class="calendar-day">1</div><div class="calendar-day">2</div><div class="calendar-day">3</div><div class="calendar-day">4</div><div class="calendar-day">5</div><div class="calendar-day">6</div><div class="calendar-day">7</div>
+        <div class="calendar-day">8</div><div class="calendar-day">9</div><div class="calendar-day">10</div><div class="calendar-day">11</div><div class="calendar-day">12</div><div class="calendar-day">13</div><div class="calendar-day">14</div>
+        <div class="calendar-day">15</div><div class="calendar-day">16</div><div class="calendar-day">17</div><div class="calendar-day">18</div><div class="calendar-day">19</div><div class="calendar-day">20</div><div class="calendar-day">21</div>
+        <div class="calendar-day highlight">22</div><div class="calendar-day">23</div><div class="calendar-day">24</div><div class="calendar-day">25</div><div class="calendar-day">26</div><div class="calendar-day">27</div><div class="calendar-day">28</div>
+        <div class="calendar-day">29</div><div class="calendar-day">30</div><div></div><div></div><div></div><div></div><div></div>
+      </div>
+    </div>
 
-        function openInvitation() {
-            if (envelopeOpened) return; 
-            envelopeOpened = true;
+    <div id="countdown-timer" class="fade-in">
+      <div class="cd"><b id="dias">00</b><span>Días</span></div>
+      <div class="cd"><b id="horas">00</b><span>Hrs</span></div>
+      <div class="cd"><b id="minutos">00</b><span>Min</span></div>
+      <div class="cd"><b id="segundos">00</b><span>Seg</span></div>
+    </div>
 
-            const envelopeScreen = document.getElementById('envelope-screen');
-            const envelopeWrapper = document.querySelector('.envelope-wrapper');
-            const invitationContent = document.getElementById('invitation-content');
-            
-            envelopeWrapper.classList.add('open');
-            
-            audio.play().then(() => {
-                audioIcon.classList.remove('fa-music');
-                audioIcon.classList.add('fa-pause');
-            }).catch(e => console.log("Auto-play prevenido", e));
+    <button onclick="downloadICS()" class="btn fade-in"><i class="fa-regular fa-calendar-plus"></i> Agregar al calendario</button>
+  </section>
 
-            setTimeout(() => {
-                envelopeScreen.style.opacity = '0';
-                invitationContent.style.visibility = 'visible';
-                invitationContent.style.opacity = '1';
-                audioBtn.style.display = 'flex'; 
-                
-                setTimeout(() => { envelopeScreen.style.display = 'none'; }, 1000);
-            }, 800); 
-        }
+  <!-- FOTO -->
+  <div class="photo"><img src="assets/2.jpg" alt="Momentos especiales"></div>
 
-        function toggleAudio() {
-            if(audio.paused) {
-                audio.play();
-                audioIcon.classList.remove('fa-music'); 
-                audioIcon.classList.add('fa-pause');
-            } else {
-                audio.pause();
-                audioIcon.classList.remove('fa-pause'); 
-                audioIcon.classList.add('fa-music');
-            }
-        }
+  <!-- ITINERARIO + VESTIMENTA -->
+  <section class="sec">
+    <div class="sec-head fade-in"><i class="fa-solid fa-star"></i><h2 class="sec-title">Itinerario</h2><i class="fa-solid fa-star"></i></div>
 
-        // --- 2. WHATSAPP (NÚMERO ASIGNADO) ---
-        const telefonoWhatsApp = "528120630290";
+    <div class="timeline">
+      <div class="timeline-item fade-in"><div class="timeline-icon"><i class="fa-solid fa-church"></i></div><div><div class="timeline-time">5:00 PM</div><div class="timeline-event">Ceremonia Religiosa</div></div></div>
+      <div class="timeline-item fade-in"><div class="timeline-icon"><i class="fa-solid fa-champagne-glasses"></i></div><div><div class="timeline-time">6:30 PM</div><div class="timeline-event">Recepción</div></div></div>
+      <div class="timeline-item fade-in"><div class="timeline-icon"><i class="fa-solid fa-music"></i></div><div><div class="timeline-time">7:00 PM</div><div class="timeline-event">Vals de los novios</div></div></div>
+      <div class="timeline-item fade-in"><div class="timeline-icon"><i class="fa-solid fa-utensils"></i></div><div><div class="timeline-time">8:00 PM</div><div class="timeline-event">Cena</div></div></div>
+      <div class="timeline-item fade-in"><div class="timeline-icon"><i class="fa-solid fa-guitar"></i></div><div><div class="timeline-time">8:30 PM</div><div class="timeline-event">Grupo norteño en vivo</div></div></div>
+    </div>
 
-        // --- 3. INICIALIZACIÓN ---
-        document.addEventListener("DOMContentLoaded", function() {
-            
-            // Observer para animaciones (Aplica clase .visible)
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('visible');
-                    }
-                });
-            }, { threshold: 0.1 });
-            document.querySelectorAll('.fade-in, .divider, .scale-in').forEach(el => observer.observe(el));
+    <div class="divider fade-in" style="margin-top:50px"><i class="fa-solid fa-star"></i></div>
 
-            // Lógica de URL Params (Invitados dinámicos para Invytia)
-            const urlParams = new URLSearchParams(window.location.search);
-            const invitado = urlParams.get('invitado');
-            const pases = urlParams.get('pases');
-            const nombresStr = urlParams.get('nombres');
+    <div class="fade-in">
+      <div class="big-icon"><i class="fa-solid fa-user-tie"></i></div>
+      <p class="kicker">Código de vestimenta</p>
+      <p class="serif-title">Formal</p>
+      <div class="colors" aria-label="Colores a evitar: blanco, ivory y dorado">
+        <div class="color-swatch no" style="background:#FFFFFF"></div>
+        <div class="color-swatch no" style="background:#FBF7EC"></div>
+        <div class="color-swatch no" style="background:#C9A24B"></div>
+      </div>
+      <p class="soft-text">Sugerimos <strong>no</strong> inspirarse en nuestra paleta de colores: blanco, ivory y dorado. Gracias.</p>
+    </div>
+  </section>
 
-            if (invitado && pases) {
-                document.getElementById('paseSection').style.display = 'block';
-                document.getElementById('guestNameDisplay').textContent = invitado;
-                document.getElementById('guestPassesDisplay').textContent = pases;
-            }
+  <!-- MESA DE REGALOS -->
+  <section class="sec cream">
+    <div class="fade-in">
+      <div class="big-icon"><i class="fa-solid fa-envelope-open-text"></i></div>
+      <p class="kicker">Mesa de regalos</p>
+      <p class="serif-title">Lluvia de Sobres</p>
+      <p class="soft-text">El mejor regalo es su presencia, pero si desean tener un detalle con nosotros, contaremos con lluvia de sobres el día del evento.</p>
+    </div>
+  </section>
 
-            if (nombresStr) {
-                const nombres = nombresStr.split(',');
-                const listContainer = document.getElementById('dynamicGuestList');
-                let html = `<label style="font-family: var(--font-sans); font-size: 0.72rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--olive-dark); margin-bottom: 20px; display: block; font-weight: 500;">Selecciona quiénes asisten:</label>`;
-                
-                nombres.forEach((nombre, index) => {
-                    html += `
-                    <div style="display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; margin-bottom: 18px; padding-bottom: 18px; border-bottom: 1px solid rgba(123,129,96,0.3);">
-                        <span style="font-family: var(--font-body); font-size: 1.1rem; font-weight: 500; color: var(--text-color); flex: 1; min-width: 120px;">${nombre.trim()}</span>
-                        <div class="radio-container" style="flex-shrink: 0;">
-                            <label class="radio-label"><input type="radio" name="asistencia_${index}" value="Sí"> Sí</label>
-                            <label class="radio-label"><input type="radio" name="asistencia_${index}" value="No"> No</label>
-                        </div>
-                    </div>`;
-                });
-                
-                listContainer.innerHTML = html;
-                document.getElementById('genericRSVPInputs').style.display = 'none';
-            }
+  <!-- HOSPEDAJE Y LOCACIONES -->
+  <section class="sec">
+    <div class="fade-in">
+      <div class="big-icon"><i class="fa-solid fa-hotel"></i></div>
+      <p class="kicker">Hospedaje sugerido</p>
+      <p class="serif-title" style="font-size:1.6rem">CHN Monterrey Santa Fe</p>
+      <p class="kicker" style="color:var(--muted);margin-bottom:8px">Hotel economy</p>
+      <a href="https://maps.app.goo.gl/2AqLpNBwRqMtXaD39" target="_blank" rel="noopener" class="btn btn-block"><i class="fa-solid fa-location-arrow"></i> Ver en mapa</a>
+      <a href="https://www.chnhoteles.com/chn-monterrey-santafe/" target="_blank" rel="noopener" class="btn btn-outline btn-block" style="margin-top:12px"><i class="fa-solid fa-globe"></i> Sitio web</a>
+    </div>
 
-            // Cuenta Regresiva: 22 de Noviembre de 2026, 17:00 hrs
-            const countDownDate = new Date("Nov 22, 2026 17:00:00").getTime();
-            const x = setInterval(function() {
-                const now = new Date().getTime();
-                const distance = countDownDate - now;
+    <div class="divider fade-in" style="margin-top:56px"><i class="fa-solid fa-horse-head"></i></div>
 
-                if (distance < 0) {
-                    clearInterval(x);
-                    document.getElementById("countdown-timer").innerHTML = "<span style='grid-column: 1 / -1; font-size: 2rem; text-align: center; color: var(--olive-dark); font-family: var(--font-serif); font-style: italic;'>¡HOY ES EL GRAN DÍA!</span>";
-                    return;
-                }
-                
-                const d = Math.floor(distance / (1000 * 60 * 60 * 24));
-                const h = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-                const m = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-                const s = Math.floor((distance % (1000 * 60)) / 1000);
+    <div class="sec-head fade-in"><i class="fa-solid fa-star"></i><h2 class="sec-title">Locaciones</h2><i class="fa-solid fa-star"></i></div>
 
-                document.getElementById("dias").innerHTML = d < 10 ? "0" + d : d;
-                document.getElementById("horas").innerHTML = h < 10 ? "0" + h : h;
-                document.getElementById("minutos").innerHTML = m < 10 ? "0" + m : m;
-                document.getElementById("segundos").innerHTML = s < 10 ? "0" + s : s;
-            }, 1000);
-        });
+    <div class="big-icon fade-in" style="margin-top:34px"><i class="fa-solid fa-church"></i></div>
+    <p class="venue-type fade-in">CEREMONIA</p>
+    <div class="venue-name fade-in">María Madre de la Iglesia</div>
+    <div class="map-container fade-in">
+      <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3594.1926550046633!2d-100.3706311!3d25.731141800000003!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8662968c2cd1bd4f%3A0xcece72aa578935b6!2sMar%C3%ADa%20Madre%20de%20La%20Iglesia!5e0!3m2!1ses-419!2smx!4v1792185935345!5m2!1ses-419!2smx" allowfullscreen loading="lazy" referrerpolicy="strict-origin-when-cross-origin" title="Mapa de la ceremonia"></iframe>
+    </div>
+    <a href="https://maps.app.goo.gl/pGyTXaqWpeSJzF9q7" target="_blank" rel="noopener" class="btn btn-block fade-in"><i class="fa-solid fa-location-arrow"></i> Ruta a la iglesia</a>
 
-        // --- 4. RSVP ---
-        function sendRSVP() {
-            const urlParams = new URLSearchParams(window.location.search);
-            const nombresStr = urlParams.get('nombres');
-            const invitado = urlParams.get('invitado');
-            
-            let mensaje = "";
+    <div class="divider fade-in" style="margin-top:50px"><i class="fa-solid fa-star"></i></div>
 
-            if (nombresStr) {
-                const nombres = nombresStr.split(',');
-                let confirmados = [], declinados = [], todosRespondidos = true;
+    <div class="big-icon fade-in"><i class="fa-solid fa-champagne-glasses"></i></div>
+    <p class="venue-type fade-in">RECEPCIÓN</p>
+    <div class="venue-name fade-in">La Amatista Eventos<span class="venue-sub">Salón Ámbar</span></div>
+    <div class="map-container fade-in">
+      <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3593.2389879112575!2d-100.40391629999999!3d25.762668599999998!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x866290d2cfaa01c1%3A0x2ad3b22391485632!2sLa%20Amatista%20Eventos!5e0!3m2!1ses-419!2smx!4v1792186094315!5m2!1ses-419!2smx" allowfullscreen loading="lazy" referrerpolicy="strict-origin-when-cross-origin" title="Mapa de la recepción"></iframe>
+    </div>
+    <a href="https://maps.app.goo.gl/rPdpnJoUC5Zyeqer9" target="_blank" rel="noopener" class="btn btn-block fade-in"><i class="fa-solid fa-location-arrow"></i> Ruta a la recepción</a>
+  </section>
 
-                nombres.forEach((nombre, index) => {
-                    const opc = document.querySelector(`input[name="asistencia_${index}"]:checked`);
-                    if (!opc) todosRespondidos = false;
-                    else if (opc.value === 'Sí') confirmados.push(nombre.trim());
-                    else declinados.push(nombre.trim());
-                });
+  <!-- SOLO ADULTOS -->
+  <section class="sec cream">
+    <div class="fade-in">
+      <div class="big-icon"><i class="fa-solid fa-wine-glass"></i></div>
+      <p class="kicker">Celebración para adultos</p>
+      <p class="serif-title">Evento sin niños</p>
+      <div class="adults-box">
+        <p class="soft-text">Con todo el cariño del mundo, hemos pensado nuestra boda como una celebración exclusiva para adultos. Les agradecemos de corazón que comprendan que no podremos recibir niños en esta ocasión, para que todos, incluidos ustedes, disfruten de la noche con tranquilidad. ¡Gracias por acompañarnos y por respetar este deseo!</p>
+      </div>
+    </div>
+  </section>
 
-                if (!todosRespondidos) { 
-                    alert("Por favor, selecciona si asiste o no cada persona de la lista."); 
-                    return; 
-                }
+  <!-- ASISTENCIA -->
+  <section class="sec">
+    <div class="sec-head fade-in"><i class="fa-solid fa-star"></i><h2 class="sec-title">Asistencia</h2><i class="fa-solid fa-star"></i></div>
 
-                mensaje = `¡Hola! Somos la *${invitado || 'Familia'}* y aquí está nuestra confirmación de asistencia:\n\n`;
-                if (confirmados.length > 0) mensaje += `✅ *Asistirán:*\n- ${confirmados.join('\n- ')}\n\n`;
-                if (declinados.length > 0) mensaje += `❌ *No podrán asistir:*\n- ${declinados.join('\n- ')}\n\n`;
-            } else {
-                const nombre = document.getElementById('rsvpNombre').value.trim();
-                const apellido = document.getElementById('rsvpApellido').value.trim();
-                const asistencia = document.getElementById('rsvpAsistencia').value;
+    <div class="card-soft scale-in">
+      <div id="paseSection" style="display:none;text-align:center;margin-bottom:30px;border-bottom:1px solid var(--line);padding-bottom:28px">
+        <p class="kicker" style="margin-bottom:10px">Pase de entrada</p>
+        <h2 id="guestNameDisplay" style="font-family:var(--f-serif);font-style:italic;font-weight:500;font-size:2.4rem;margin:12px 0;color:var(--ink)">Invitado Especial</h2>
+        <p style="font-size:1.1rem;color:var(--ink)">Lugares reservados: <span id="guestPassesDisplay" style="font-family:var(--f-serif);font-weight:600;color:var(--gold-dark);font-size:1.9rem">2</span></p>
+      </div>
 
-                if(!nombre || !apellido || !asistencia) { 
-                    alert("Por favor, completa tu nombre, apellido y estado de asistencia."); 
-                    return; 
-                }
-                
-                mensaje = `Hola Blasy y Fidel, soy *${nombre} ${apellido}*.\n\nQuiero confirmar mi respuesta a su boda: *${asistencia}*\n\n`;
-            }
+      <p style="font-family:var(--f-sans);font-size:.72rem;letter-spacing:.08em;color:#9b3b2a;margin-bottom:24px;font-weight:600;line-height:1.6">
+        <i class="fa-solid fa-circle-exclamation"></i> FAVOR DE CONFIRMAR ANTES DEL 08/11/2026
+      </p>
 
-            window.open(`https://wa.me/${telefonoWhatsApp}?text=${encodeURIComponent(mensaje)}`, '_blank');
-        }
+      <form id="rsvpForm" onsubmit="return false">
+        <div id="genericRSVPInputs">
+          <div class="form-group"><label for="rsvpNombre">Nombre(s):</label><input type="text" id="rsvpNombre" placeholder="Ej. Juan"></div>
+          <div class="form-group"><label for="rsvpApellido">Apellido(s):</label><input type="text" id="rsvpApellido" placeholder="Ej. Rodríguez"></div>
+          <div class="form-group">
+            <label for="rsvpAsistencia">¿Asistirás?:</label>
+            <select id="rsvpAsistencia">
+              <option value="">Selecciona una opción</option>
+              <option value="¡Sí, ahí estaré!">¡Sí, acompañaremos a los novios!</option>
+              <option value="Lamentablemente no podré asistir">Lamentablemente no podremos asistir</option>
+            </select>
+          </div>
+        </div>
+        <div id="dynamicGuestList" style="width:100%;text-align:left"></div>
+        <button type="button" onclick="sendRSVP()" class="btn btn-block" style="padding:17px"><i class="fa-brands fa-whatsapp"></i> Confirmar asistencia</button>
+      </form>
+    </div>
+  </section>
 
-        // --- 5. BUENOS DESEOS ---
-        function sendWishes() {
-            const wishes = document.getElementById('wishesText').value.trim();
-            if(!wishes) { 
-                alert("Por favor, escribe un mensaje primero."); 
-                return; 
-            }
-            let mensaje = `¡Hola Blasy y Fidel! Les escribo para dejarles mis mejores deseos para su boda:\n\n"${wishes}"`;
-            window.open(`https://wa.me/${telefonoWhatsApp}?text=${encodeURIComponent(mensaje)}`, '_blank');
-        }
+  <!-- BUENOS DESEOS -->
+  <section class="sec cream">
+    <div class="sec-head fade-in"><i class="fa-solid fa-star"></i><h2 class="sec-title">Buenos deseos</h2><i class="fa-solid fa-star"></i></div>
+    <div class="card-soft scale-in">
+      <form id="wishesForm" onsubmit="return false">
+        <div class="form-group">
+          <label for="wishesText">Escribe un mensaje para los novios:</label>
+          <textarea id="wishesText" rows="5" placeholder="¡Muchas felicidades en esta nueva etapa!"></textarea>
+        </div>
+        <button type="button" onclick="sendWishes()" class="btn btn-block" style="padding:17px"><i class="fa-brands fa-whatsapp"></i> Enviar mensaje</button>
+      </form>
+    </div>
+  </section>
 
-        // --- 6. DESCARGAR ICS ---
-        function downloadICS() {
-            const calData = `BEGIN:VCALENDAR\nVERSION:2.0\nPRODID:-//Boda Blasy y Fidel//ES\nBEGIN:VEVENT\nDTSTART:20261122T230000Z\nDTEND:20261123T080000Z\nSUMMARY:Boda de Blasy y Fidel\nLOCATION:María Madre de la Iglesia\nDESCRIPTION:¡Acompáñanos a celebrar nuestra boda religiosa!\nEND:VEVENT\nEND:VCALENDAR`;
-            const blob = new Blob([calData], { type: 'text/calendar;charset=utf-8' });
-            const url = URL.createObjectURL(blob);
-            const a = document.createElement('a'); 
-            a.href = url;
-            a.download = 'Boda_Blasy_y_Fidel.ics'; 
-            document.body.appendChild(a); 
-            a.click(); 
-            document.body.removeChild(a);
-        }
-    </script>
+  <!-- GRACIAS -->
+  <section class="sec wood" style="padding-top:80px;padding-bottom:80px">
+    <div class="big-icon fade-in" style="color:var(--gold-light)"><i class="fa-solid fa-hat-cowboy"></i></div>
+    <h3 class="thanks-script fade-in">¡Gracias!</h3>
+    <p class="thanks-text fade-in">Tu presencia hará de este día un momento inolvidable para nosotros.</p>
+    <div class="thanks-names fade-in">BLASY &amp; FIDEL</div>
+  </section>
+
+</div>
+</div>
+
+<script>
+// 1. SOBRE Y AUDIO
+const audio=document.getElementById('bg-audio'),audioIcon=document.getElementById('audio-icon'),audioBtn=document.getElementById('audio-btn');
+let envelopeOpened=false;
+
+function openInvitation(){
+  if(envelopeOpened)return; envelopeOpened=true;
+  const screen=document.getElementById('envelope-screen'),content=document.getElementById('invitation-content');
+  document.querySelector('.envelope-wrapper').classList.add('open');
+  audio.play().then(()=>{audioIcon.classList.replace('fa-music','fa-pause')}).catch(e=>console.log("Auto-play prevenido",e));
+  setTimeout(()=>{
+    screen.style.opacity='0';
+    content.style.visibility='visible'; content.style.opacity='1';
+    audioBtn.style.display='flex';
+    setTimeout(()=>{screen.style.display='none'},1000);
+  },800);
+}
+document.querySelector('.envelope-wrapper').addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();openInvitation()}});
+
+function toggleAudio(){
+  if(audio.paused){audio.play();audioIcon.classList.replace('fa-music','fa-pause')}
+  else{audio.pause();audioIcon.classList.replace('fa-pause','fa-music')}
+}
+
+// 2. WHATSAPP
+const telefonoWhatsApp="528120630290";
+
+// 3. INICIALIZACIÓN
+document.addEventListener("DOMContentLoaded",function(){
+  const observer=new IntersectionObserver(entries=>{
+    entries.forEach(en=>{if(en.isIntersecting)en.target.classList.add('visible')});
+  },{threshold:0.1});
+  document.querySelectorAll('.fade-in, .divider, .scale-in').forEach(el=>observer.observe(el));
+
+  const params=new URLSearchParams(window.location.search);
+  const invitado=params.get('invitado'),pases=params.get('pases'),nombresStr=params.get('nombres');
+
+  if(invitado&&pases){
+    document.getElementById('paseSection').style.display='block';
+    document.getElementById('guestNameDisplay').textContent=invitado;
+    document.getElementById('guestPassesDisplay').textContent=pases;
+  }
+
+  if(nombresStr){
+    const nombres=nombresStr.split(',');
+    const list=document.getElementById('dynamicGuestList');
+    let html=`<label style="font-family:var(--f-sans);font-size:.72rem;letter-spacing:.2em;text-transform:uppercase;color:var(--gold-dark);margin-bottom:20px;display:block;font-weight:500">Selecciona quiénes asisten:</label>`;
+    nombres.forEach((nombre,i)=>{
+      html+=`
+      <div style="display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;margin-bottom:18px;padding-bottom:18px;border-bottom:1px solid rgba(201,162,75,.4)">
+        <span style="font-size:1.1rem;font-weight:500;color:var(--ink);flex:1;min-width:120px"></span>
+        <div class="radio-container" style="flex-shrink:0">
+          <label class="radio-label"><input type="radio" name="asistencia_${i}" value="Sí"> Sí</label>
+          <label class="radio-label"><input type="radio" name="asistencia_${i}" value="No"> No</label>
+        </div>
+      </div>`;
+    });
+    list.innerHTML=html;
+    // textContent para evitar inyección de HTML desde la URL
+    list.querySelectorAll('span').forEach((s,i)=>{s.textContent=nombres[i].trim()});
+    document.getElementById('genericRSVPInputs').style.display='none';
+  }
+
+  // Cuenta regresiva: 22 nov 2026, 17:00
+  const target=new Date("Nov 22, 2026 17:00:00").getTime();
+  const pad=n=>n<10?"0"+n:n;
+  const timer=setInterval(()=>{
+    const d=target-Date.now();
+    if(d<0){
+      clearInterval(timer);
+      document.getElementById("countdown-timer").innerHTML="<span style='grid-column:1/-1;font-size:2rem;text-align:center;color:var(--gold-dark);font-family:var(--f-serif);font-style:italic'>¡HOY ES EL GRAN DÍA!</span>";
+      return;
+    }
+    document.getElementById("dias").textContent=pad(Math.floor(d/864e5));
+    document.getElementById("horas").textContent=pad(Math.floor(d%864e5/36e5));
+    document.getElementById("minutos").textContent=pad(Math.floor(d%36e5/6e4));
+    document.getElementById("segundos").textContent=pad(Math.floor(d%6e4/1e3));
+  },1000);
+});
+
+// 4. RSVP
+function sendRSVP(){
+  const params=new URLSearchParams(window.location.search);
+  const nombresStr=params.get('nombres'),invitado=params.get('invitado');
+  let mensaje="";
+
+  if(nombresStr){
+    const nombres=nombresStr.split(',');
+    let ok=[],no=[],todos=true;
+    nombres.forEach((n,i)=>{
+      const o=document.querySelector(`input[name="asistencia_${i}"]:checked`);
+      if(!o)todos=false; else if(o.value==='Sí')ok.push(n.trim()); else no.push(n.trim());
+    });
+    if(!todos){alert("Por favor, selecciona si asiste o no cada persona de la lista.");return}
+    mensaje=`¡Hola! Somos la *${invitado||'Familia'}* y aquí está nuestra confirmación de asistencia:\n\n`;
+    if(ok.length)mensaje+=`✅ *Asistirán:*\n- ${ok.join('\n- ')}\n\n`;
+    if(no.length)mensaje+=`❌ *No podrán asistir:*\n- ${no.join('\n- ')}\n\n`;
+  }else{
+    const nombre=document.getElementById('rsvpNombre').value.trim();
+    const apellido=document.getElementById('rsvpApellido').value.trim();
+    const asistencia=document.getElementById('rsvpAsistencia').value;
+    if(!nombre||!apellido||!asistencia){alert("Por favor, completa tu nombre, apellido y estado de asistencia.");return}
+    mensaje=`Hola Blasy y Fidel, soy *${nombre} ${apellido}*.\n\nQuiero confirmar mi respuesta a su boda: *${asistencia}*\n\n`;
+  }
+  window.open(`https://wa.me/${telefonoWhatsApp}?text=${encodeURIComponent(mensaje)}`,'_blank');
+}
+
+// 5. BUENOS DESEOS
+function sendWishes(){
+  const w=document.getElementById('wishesText').value.trim();
+  if(!w){alert("Por favor, escribe un mensaje primero.");return}
+  const msg=`¡Hola Blasy y Fidel! Les escribo para dejarles mis mejores deseos para su boda:\n\n"${w}"`;
+  window.open(`https://wa.me/${telefonoWhatsApp}?text=${encodeURIComponent(msg)}`,'_blank');
+}
+
+// 6. ICS
+function downloadICS(){
+  const cal=`BEGIN:VCALENDAR\nVERSION:2.0\nPRODID:-//Boda Blasy y Fidel//ES\nBEGIN:VEVENT\nDTSTART:20261122T230000Z\nDTEND:20261123T080000Z\nSUMMARY:Boda de Blasy y Fidel\nLOCATION:María Madre de la Iglesia\nDESCRIPTION:¡Acompáñanos a celebrar nuestra boda religiosa!\nEND:VEVENT\nEND:VCALENDAR`;
+  const url=URL.createObjectURL(new Blob([cal],{type:'text/calendar;charset=utf-8'}));
+  const a=document.createElement('a');a.href=url;a.download='Boda_Blasy_y_Fidel.ics';
+  document.body.appendChild(a);a.click();document.body.removeChild(a);
+}
+</script>
 </body>
 </html>
